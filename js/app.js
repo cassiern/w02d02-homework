@@ -1,4 +1,8 @@
+
+
+
 const cardDeck = [
+
   {
     name: "Bulbasaur",
     damage: 60
@@ -65,38 +69,47 @@ const cardsPlayed = [];
 let gameOn = true;
 
 const computerChooses = () => {
-  for (let i = 0; i < 3; i++){
+  for (let i = 0; i < 4; i++){
       const card = Math.floor(Math.random()*cardDeck.length);
+      const pokemonCard = cardDeck[card];
       cardsPlayed.push(card)
-      console.log(`Computer chose ${card}`);
-      computerHand = card;
+      const disCards = cardsPlayed.push(cardDeck.splice(i, 1));
+      console.log(`Computer chose ${pokemonCard.name}, ${pokemonCard.damage}`);
+      computerHand = pokemonCard.damage;
       return computerHand;
     }
   }
   computerChooses();
 
 const playerChooses = () => {
-  for (let i = 0; i < 3; i++){
+  for (let i = 0; i < 4; i++){
   card = Math.floor(Math.random()*cardDeck.length);
+  pokemonCard = cardDeck[card];
   cardsPlayed.push(card)
-  console.log(`Player chose ${card}`);
-  playerHand = card;
+  const disCards = cardsPlayed.push(cardDeck.splice(i, 1));
+  console.log(`Player chose ${pokemonCard.name}, ${pokemonCard.damage}`);
+  playerHand = pokemonCard.damage;
   return playerHand
 }
 }
 playerChooses();
 
+
+
+
 function pokemonGo(){
+  const pokemonPlayer = playerChooses();
+  const pokemonComputer = computerChooses();
   for(let i = 0; i < 3; i++){
-if (playerChooses() > computerChooses()){
+if (pokemonPlayer > pokemonComputer){
       playerPoints = playerPoints += 1;
       console.log(`Player earned a point! ${playerPoints} for player`)
   } 
-  else if (playerChooses() < computerChooses()){
+  else if (pokemonPlayer < pokemonComputer){
     computerPoints = computerPoints += 1;
     console.log(`Computer earned a point! ${computerPoints} for the computer.`)
   } 
-  else if (playerChooses() === computerChooses()){
+  else if (pokemonPlayer === pokemonComputer){
     console.log("It's a tie!")
 }
   }
@@ -109,6 +122,18 @@ if (playerChooses() > computerChooses()){
 pokemonGo();
 
 
+
+function howManyCards(){
+for(let i = 0; i < cardDeck.length; i++){
+  if (cardDeck.length < 6){
+  alert("Sorry, not enough cards in the deck for another round.");
+    }
+  }
+}
+howManyCards();
+
+
+
 function wouldYouLikeToContinue(){
   const response = prompt("Want to continue? yes/no");
   if(response === 'no'){
@@ -117,11 +142,14 @@ function wouldYouLikeToContinue(){
 }
 wouldYouLikeToContinue();
 
+
+
 function gameStart(){
 while (gameOn === true){
   computerChooses();
   playerChooses();
   pokemonGo();
+  howManyCards()
   wouldYouLikeToContinue();
 }
 }
